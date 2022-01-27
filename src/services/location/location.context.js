@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { locationRequest, locationTransform } from "./location.service";
+import { locationRequest, locationTransform, locationTransformForSearch } from "./location.service";
 
 export const LocationContext = React.createContext();
 
@@ -21,7 +21,7 @@ export const LocationContextProvider = ({ children }) => {
       .then(locationTransform)
       .then((result) => {
         setIsLoading(false);
-        setLocation(result);
+        setLocation({...result, locationString: locationTransformForSearch(result)});
         console.log(result);
       })
       .catch((err) => {

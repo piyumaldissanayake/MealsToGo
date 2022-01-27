@@ -25,11 +25,6 @@ const LoadingContainer = styled.View`
 
 export const RestaurantsScreen   = () => {
 
-    const [searchQuery, setSearchQuery] = useState('');
-    const onChangeSearch = (query) => {
-        setSearchQuery(query)
-    };
-
     const {isLoading, restaurants, error} = useContext(RestaurantContext);
 
     return(
