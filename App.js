@@ -14,6 +14,10 @@ import { RestaurantsScreen } from './src/features/restaurants/screens/restaurant
 import { SettingsScreen } from './src/features/restaurants/screens/settings.screen';
 import { MapScreen } from './src/features/restaurants/screens/map.screen';
 import { theme } from './src/infrastructure/theme/index'
+
+import {RestaurantContextProvider} from './src/services/restaurants/restaurants.context';
+import {LocationContextProvider} from './src/services/location/location.context';  
+
 const Tab = createBottomTabNavigator();
 
 const TAB_ICONS = {
@@ -60,9 +64,13 @@ export default function App() {
     return (
       <>
       <ThemeProvider theme={theme}>
-      <NavigationContainer>
-        <MyTabs />
-      </NavigationContainer>
+        <LocationContextProvider>
+          <RestaurantContextProvider>
+            <NavigationContainer>
+              <MyTabs />
+            </NavigationContainer>
+          </RestaurantContextProvider>
+        </LocationContextProvider>
       </ThemeProvider>
       <ExpoStatusBar style='auto' />
     </>
