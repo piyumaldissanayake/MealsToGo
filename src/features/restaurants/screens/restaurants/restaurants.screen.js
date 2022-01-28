@@ -1,13 +1,13 @@
 import React, {useState, useContext} from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, Pressable } from 'react-native';
 import styled from 'styled-components/native';
 import { ActivityIndicator, Colors } from 'react-native-paper';
 
-import {Search} from '../components/search.component';
-import {RestaurantInfoCard} from '../components/restaurant-info-card/restaurant-info-card.component';
-import { SafeAreaViewContainer } from '../components/utilities/safe-area.component'
+import {Search} from '../../components/search.component';
+import {RestaurantInfoCard} from '../../components/restaurant-info-card/restaurant-info-card.component';
+import { SafeAreaViewContainer } from '../../components/utilities/safe-area.component'
 
-import {RestaurantContext} from '../../../services/restaurants/restaurants.context';
+import {RestaurantContext} from '../../../../services/restaurants/restaurants.context';
 
 const RestaurantList = styled(FlatList).attrs({
   contentContainerStyle: {
@@ -23,9 +23,9 @@ const LoadingContainer = styled.View`
   left: 50%;
 `;
 
-export const RestaurantsScreen   = () => {
-
-    const {isLoading, restaurants, error} = useContext(RestaurantContext);
+export const RestaurantsScreen   = ({ navigation }) => {
+    //console.log(props);
+    const {isLoading, restaurants} = useContext(RestaurantContext);
 
     return(
         <SafeAreaViewContainer>
@@ -39,7 +39,12 @@ export const RestaurantsScreen   = () => {
               data={restaurants}
               renderItem= {({item})=> {
                 return(
-                  <RestaurantInfoCard restaurant={item} /> 
+                  <Pressable 
+                    onPress={()=>{
+                      navigation.navigate("Restaurants Detail", {restaurant:item});
+                      }}>
+                    <RestaurantInfoCard restaurant={item}  /> 
+                  </Pressable>
                 );
               }
              }
