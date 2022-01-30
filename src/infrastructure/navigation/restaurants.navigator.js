@@ -2,8 +2,8 @@ import React from "react";
 import { Text } from 'react-native';
 import { createStackNavigator } from "@react-navigation/stack";
 
-import { RestaurantsScreen } from "../../features/restaurants/screens/restaurants/restaurants.screen";
-import { RestaurantsDetailsScreen } from "../../features/restaurants/screens/restaurants/restaurants.details.screen";
+import { RestaurantsScreen } from "../../features/restaurants/screens/restaurants.screen";
+import { RestaurantsDetailsScreen } from "../../features/restaurants/screens/restaurants.details.screen";
 
 const RestaurantStack = createStackNavigator();
 

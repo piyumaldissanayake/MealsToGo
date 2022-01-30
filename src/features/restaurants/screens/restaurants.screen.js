@@ -3,11 +3,11 @@ import { FlatList, Pressable } from 'react-native';
 import styled from 'styled-components/native';
 import { ActivityIndicator, Colors } from 'react-native-paper';
 
-import {Search} from '../../components/search.component';
-import {RestaurantInfoCard} from '../../components/restaurant-info-card/restaurant-info-card.component';
-import { SafeAreaViewContainer } from '../../components/utilities/safe-area.component'
+import {Search} from '../components/search.component';
+import {RestaurantInfoCard} from '../components/restaurant-info-card/restaurant-info-card.component';
+import { SafeAreaViewContainer } from '../../../components/utilities/safe-area.component';
 
-import {RestaurantContext} from '../../../../services/restaurants/restaurants.context';
+import {RestaurantContext} from '../../../services/restaurants/restaurants.context';
 
 const RestaurantList = styled(FlatList).attrs({
   contentContainerStyle: {

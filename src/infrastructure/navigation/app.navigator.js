@@ -4,9 +4,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 
-import {  RestaurantsNavigator } from './restaurants.navigator';
-import { SettingsScreen } from '../../features/restaurants/screens/settings.screen';
-import { MapScreen } from '../../features/restaurants/screens/map.screen';
+import { RestaurantsNavigator } from './restaurants.navigator';
+import { SettingsScreen } from '../../components/settings/settings.screen';
+import { MapScreen } from '../../features/map/screens/map.screen';
 
 
 const Tab = createBottomTabNavigator();
@@ -35,8 +35,8 @@ function MyTabs() {
     return (
       <Tab.Navigator screenOptions={createScreenOptions}>
         <Tab.Screen name="Restaurants" component={RestaurantsNavigator} />
-        <Tab.Screen name="Settings" component={SettingsScreen} />
         <Tab.Screen name="Map" component={MapScreen} />
+        <Tab.Screen name="Settings" component={SettingsScreen} />
       </Tab.Navigator>
     );
   }
