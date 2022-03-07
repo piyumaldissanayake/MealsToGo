@@ -26,7 +26,7 @@ export const Search = () => {
         <SearchContainer>
             <Searchbar
                 placeholder="Search for a location"
-                icon="map"
+                icon='map'
                 value={searchKeyword}
                 onSubmitEditing={() => search(searchKeyword)}
                 onChangeText={(text)=>setSearchKeyword(text)}
