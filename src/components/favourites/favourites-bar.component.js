@@ -8,7 +8,7 @@ import { Text } from "../typography/typography.component";
 const FavouritesWrapper = styled.View`
   padding: 10px;
 `;
-export const FavouritesBar = ({ favourites, onNavigate }) => {
+export const FavouritesBar = ({ favourites, onDetail }) => {
   if (!favourites.length) {
     return null;
   }
@@ -25,7 +25,7 @@ export const FavouritesBar = ({ favourites, onNavigate }) => {
             <Spacer key={key} position="left" size="medium">
               <TouchableOpacity
                 onPress={() =>
-                  onNavigate("RestaurantDetail", {
+                  onDetail("Restaurants Detail", {
                     restaurant,
                   })
                 }

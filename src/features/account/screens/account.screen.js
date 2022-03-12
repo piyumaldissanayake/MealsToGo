@@ -1,10 +1,35 @@
-import React from 'react';
-import {Text, View} from 'react-native';
+import React from "react";
 
-export const AccountScreen = () => {
-    return(
-        <View>
-            <Text>Account Screen</Text>
-        </View>
-    );
-}
+import { Spacer } from "../../../components/spacer/spacer.component";
+import {
+  AccountBackground,
+  AccountContainer,
+  AccountCover,
+  AuthButton,
+} from "../components/account.styles.component";
+
+export const AccountScreen = ({ navigation }) => {
+  return (
+    <AccountBackground>
+      <AccountCover />
+      <AccountContainer>
+        <AuthButton
+          icon="lock-open-outline"
+          mode="contained"
+          onPress={() => navigation.navigate("Login")}
+        >
+          Login
+        </AuthButton>
+        <Spacer size="large">
+          <AuthButton
+            icon="email"
+            mode="contained"
+            onPress={() => navigation.navigate("Register")}
+          >
+            Register
+          </AuthButton>
+        </Spacer>
+      </AccountContainer>
+    </AccountBackground>
+  );
+};
