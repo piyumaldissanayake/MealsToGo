@@ -12,6 +12,8 @@ import { Text } from "../../../components/typography/typography.component";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { AuthenticationContext } from "../../../services/authentication/authentication.context";
 
+import {DismissKeyboardView} from '../../../components/utilities/dismiss-keyboard-view.component';
+
 export const LoginScreen = ({navigation}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -20,6 +22,7 @@ export const LoginScreen = ({navigation}) => {
     <ScrollView contentContainerStyle={{flexGrow: 1}}
                 keyboardShouldPersistTaps='handled'
         >
+      <DismissKeyboardView />
       <AccountBackground>
         <AccountCover />
         <AccountContainer>

@@ -12,6 +12,8 @@ import { Text } from "../../../components/typography/typography.component";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { AuthenticationContext } from "../../../services/authentication/authentication.context";
 
+import {DismissKeyboardView} from '../../../components/utilities/dismiss-keyboard-view.component';
+
 export const RegisterScreen = ({navigation}) => {
 
     const [email, setEmail] = useState("");
@@ -24,7 +26,8 @@ export const RegisterScreen = ({navigation}) => {
                 keyboardShouldPersistTaps='handled'
         >
             <AccountBackground>
-                <AccountCover />
+            <DismissKeyboardView />
+            <AccountCover />
             <AccountContainer>
                 <AuthInput
                 label="E-mail"
