@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import * as firebase from "firebase";
 
-import {loginRequest} from './authentication.service';
+import {loginRequest, RegistrationRequest} from './authentication.service';
 
 export const AuthenticationContext = React.createContext();
 
@@ -11,6 +11,7 @@ export const AuthenticationContextProvider = ({children}) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [user, setUser] = useState(null);
     const [error, setError] = useState(null);
+    const [successMessage, setSuccessMessage] = useState(null);
 
     const onLogin = (email, password) => {
         setIsLoading(true);
@@ -27,6 +28,27 @@ export const AuthenticationContextProvider = ({children}) => {
             });
     }
 
+    const onRegister = (email, password, repeatedPassword) => {
+        setIsLoading(true);
+        if(password !== repeatedPassword){
+            setError("Error : Passwords confirmation do not match");
+            return;
+        }
+        RegistrationRequest(email, password)
+            .then((u) => {
+                console.log(u);
+                if(u.additionalUserInfo.isNewUser){
+                    setSuccessMessage("Registration Successful.");
+                    onLogin(email, password);
+                }
+            })
+            .catch((error) => {
+                setSuccessMessage(null);
+                setError(error.toString());
+                setIsLoading(false);
+            })
+    }
+
     return( 
     <AuthenticationContext.Provider
         value={{
@@ -34,7 +56,9 @@ export const AuthenticationContextProvider = ({children}) => {
             isLoading,
             isAuthenticated: !!user,
             error,
+            successMessage,
             onLogin,
+            onRegister
         }}
     >
         {children}
