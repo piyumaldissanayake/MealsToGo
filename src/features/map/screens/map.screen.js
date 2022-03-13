@@ -7,6 +7,7 @@ import { Search } from '../components/search.component';
 import { LocationContext } from '../../../services/location/location.context';
 import { RestaurantContext } from '../../../services/restaurants/restaurants.context';
 
+
 import {MapCallout} from '../components/map-callout.component';
 
 const Map = styled(MapView)`
@@ -49,19 +50,22 @@ export const MapScreen = ({navigation}) => {
             longitudeDelta:0.02,
         }} >
         {restaurants.map((restaurant)=>{
-          return(<MapView.Marker
-            key={restaurant.name}
-            title={restaurant.name}
-            coordinate={{
-              latitude: restaurant.geometry.location.lat,
-              longitude: restaurant.geometry.location.lng,
-            }}
-            >
-              <MapView.Callout onPress={()=>{
-                  navigation.navigate("Restaurants Detail", {restaurant:restaurant});
-                  }}>
-                    <MapCallout restaurant={restaurant} />
-              </MapView.Callout>
+          return(
+            <MapView.Marker
+              key={restaurant.name}
+              title={restaurant.name}
+              coordinate={{
+                latitude: restaurant.geometry.location.lat,
+                longitude: restaurant.geometry.location.lng,
+              }}
+              >
+                
+                <MapView.Callout onPress={()=>{
+                    navigation.navigate("Restaurants Detail", {restaurant:restaurant});
+                    }}>
+                      
+                      <MapCallout restaurant={restaurant} />
+                </MapView.Callout>
             </MapView.Marker>)
         })}
       </Map>
