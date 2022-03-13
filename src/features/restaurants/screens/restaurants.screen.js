@@ -12,6 +12,8 @@ import { FavouritesBar } from '../../../components/favourites/favourites-bar.com
 import {RestaurantContext} from '../../../services/restaurants/restaurants.context';
 import {FavouritesContext} from '../../../services/favourites/favourites.context';
 
+import { FadeIn } from '../../../components/animations/fade.animations';
+
 const RestaurantList = styled(FlatList).attrs({
   contentContainerStyle: {
     padding: 16  }
@@ -43,21 +45,23 @@ export const RestaurantsScreen   = ({ navigation }) => {
                 <Loading size={50} animating={true} color={Colors.orange800} />
               </LoadingContainer>
             )}
-            <RestaurantList
-              data={restaurants}
-              renderItem= {({item})=> {
-                return(
-                  <Pressable 
-                    onPress={()=>{
-                      navigation.navigate("Restaurants Detail", {restaurant:item});
-                      }}>
-                    <RestaurantInfoCard restaurant={item}  /> 
-                  </Pressable>
-                );
+              <RestaurantList
+                data={restaurants}
+                renderItem= {({item})=> {
+                  return(
+                    <Pressable 
+                      onPress={()=>{
+                        navigation.navigate("Restaurants Detail", {restaurant:item});
+                        }}>
+                          <FadeIn duration="500" >
+                            <RestaurantInfoCard restaurant={item}  /> 
+                          </FadeIn>
+                    </Pressable>
+                  );
+                }
               }
-             }
-              keyExtractor = {(item) => item.name}
-             />
+                keyExtractor = {(item) => item.name}
+              />
         </SafeAreaViewContainer>
     );
 }

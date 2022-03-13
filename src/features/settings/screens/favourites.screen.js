@@ -7,6 +7,8 @@ import { FavouritesContext } from '../../../services/favourites/favourites.conte
 
 import { SafeAreaViewContainer } from '../../../components/utilities/safe-area.component';
 import { Text } from '../../../components/typography/typography.component';
+import { FadeIn } from '../../../components/animations/fade.animations';
+
 
 const RestaurantList = styled(FlatList).attrs({
     contentContainerStyle: {
@@ -31,10 +33,12 @@ export const FavouritesScreen = ({navigation}) => {
                         renderItem= {({item})=> {
                             return(
                                 <Pressable 
-                                onPress={()=>{
-                                    navigation.navigate("Restaurants Detail", {restaurant:item});
-                                    }}>
-                                <RestaurantInfoCard restaurant={item}  /> 
+                                    onPress={()=>{
+                                        navigation.navigate("Restaurants Detail", {restaurant:item});
+                                        }}>
+                                    <FadeIn duration="500">
+                                        <RestaurantInfoCard restaurant={item}  /> 
+                                    </FadeIn>
                                 </Pressable>
                             );
                         }}
