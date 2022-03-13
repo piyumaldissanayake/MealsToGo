@@ -5,31 +5,50 @@ import { FlatList, Pressable } from 'react-native';
 import { RestaurantInfoCard } from '../../../features/restaurants/components/restaurant-info-card/restaurant-info-card.component';
 import { FavouritesContext } from '../../../services/favourites/favourites.context';
 
+import { SafeAreaViewContainer } from '../../../components/utilities/safe-area.component';
+import { Text } from '../../../components/typography/typography.component';
+
 const RestaurantList = styled(FlatList).attrs({
     contentContainerStyle: {
       padding: 16  }
 })``;
+
+const NoFavouritesArea = styled(SafeAreaViewContainer)`
+    align-items: center;
+    justify-content: center;
+`;
 
 export const FavouritesScreen = ({navigation}) => {
 
     const { favourites } = useContext(FavouritesContext);
 
     return(
-        <RestaurantList
-            data={favourites}
-            renderItem= {({item})=> {
-            return(
-                <Pressable 
-                onPress={()=>{
-                    navigation.navigate("Restaurants Detail", {restaurant:item});
-                    }}>
-                <RestaurantInfoCard restaurant={item}  /> 
-                </Pressable>
-            );
-            }
-            }
-            keyExtractor = {(item) => item.name}
-        />
+        favourites.length ? 
+            (
+                <SafeAreaViewContainer>
+                    <RestaurantList
+                        data={favourites}
+                        renderItem= {({item})=> {
+                            return(
+                                <Pressable 
+                                onPress={()=>{
+                                    navigation.navigate("Restaurants Detail", {restaurant:item});
+                                    }}>
+                                <RestaurantInfoCard restaurant={item}  /> 
+                                </Pressable>
+                            );
+                        }}
+                        keyExtractor = {(item) => item.name}
+                    />
+                </SafeAreaViewContainer>
+            ) 
+            : 
+            (
+               <NoFavouritesArea>
+                   <Text center>No Favourites Yet</Text>
+               </NoFavouritesArea> 
+            )
+        
     );
 
 }
