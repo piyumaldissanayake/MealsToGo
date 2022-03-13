@@ -32,7 +32,6 @@ export const FavouritesContextProvider = ({ children }) => {
   }
 
   const add = (restaurant) => {
-    console.log("add Favourite");
     setFavourites([...favourites, restaurant]);
   };
 
