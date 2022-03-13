@@ -48,7 +48,6 @@ export const FavouritesScreen = ({navigation}) => {
                    <Text center>No Favourites Yet</Text>
                </NoFavouritesArea> 
             )
-        
     );
 
 }
