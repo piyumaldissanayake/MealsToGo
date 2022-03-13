@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import {ScrollView} from 'react-native';
+import {ActivityIndicator, Colors} from 'react-native-paper';
 import {
   AccountBackground,
   AccountCover,
@@ -17,7 +18,7 @@ import {DismissKeyboardView} from '../../../components/utilities/dismiss-keyboar
 export const LoginScreen = ({navigation}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { onLogin, error } = useContext(AuthenticationContext);
+  const { onLogin, isLoading , error } = useContext(AuthenticationContext);
   return (
     <ScrollView contentContainerStyle={{flexGrow: 1}}
                 keyboardShouldPersistTaps='handled'
@@ -53,13 +54,15 @@ export const LoginScreen = ({navigation}) => {
             )}
           </ErrorContainer>
           <Spacer size="large">
-            <AuthButton
+            {!isLoading ? (<AuthButton
               icon="lock-open-outline"
               mode="contained"
               onPress={() => onLogin(email, password)}
             >
               Login
-            </AuthButton>
+            </AuthButton>) :
+            (<ActivityIndicator animating={true} color={Colors.blue300} />)
+            }
           </Spacer>
         </AccountContainer>
         <Spacer size="large" />

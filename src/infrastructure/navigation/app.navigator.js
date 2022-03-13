@@ -8,6 +8,10 @@ import { RestaurantsNavigator } from './restaurants.navigator';
 import { SettingsScreen } from '../../components/settings/settings.screen';
 import { MapScreen } from '../../features/map/screens/map.screen';
 
+import {RestaurantContextProvider} from '../../services/restaurants/restaurants.context';
+import {LocationContextProvider} from '../../services/location/location.context';  
+import { FavouritesContextProvider } from '../../services/favourites/favourites.context';
+
 
 const Tab = createBottomTabNavigator();
 
@@ -45,7 +49,13 @@ export const AppNavigator = () => {
 
     return(
         <NavigationContainer>
-            <MyTabs />
+          <FavouritesContextProvider>
+            <LocationContextProvider>
+              <RestaurantContextProvider>
+                <MyTabs />
+              </RestaurantContextProvider>
+            </LocationContextProvider>
+          </FavouritesContextProvider>
         </NavigationContainer>
     );
 
