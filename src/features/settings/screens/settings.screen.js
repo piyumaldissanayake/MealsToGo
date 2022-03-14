@@ -1,7 +1,10 @@
-import React, {useContext} from 'react';
+import React, {useState, useContext} from 'react';
 import {List, Avatar} from 'react-native-paper';
+import { TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
+import { useFocusEffect } from '@react-navigation/native';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {SafeAreaViewContainer} from '../../../components/utilities/safe-area.component';
 import { Text } from '../../../components/typography/typography.component';
@@ -21,11 +24,42 @@ const AvatarContainer = styled.View`
 export const SettingsScreen = ({navigation}) => {
 
     const { user, onLogout } = useContext(AuthenticationContext);
-    console.log(user);
+    
+    const [profilePhoto, setProfilePhoto] = useState(null);
+
+    const loadPhoto = async (usrid) => {
+        try {
+          const photoURI = await AsyncStorage.getItem(`@photo-${usrid}`)
+          if(photoURI !== null){
+            setProfilePhoto(photoURI);
+          }
+        } catch(e) {
+          console.log("Error Loading Photo",e);
+        }
+    }
+
+    useFocusEffect(
+        React.useCallback(() => {
+            loadPhoto(user.uid);
+        }, [user])
+    );
+
+    
     return(
         <SafeAreaViewContainer>
             <AvatarContainer>
-                <Avatar.Icon size={180} icon="human" backgroundColor="#2182BD" />
+            <TouchableOpacity onPress={() => navigation.navigate("Camera")}>
+                {!profilePhoto && (
+                    <Avatar.Icon size={180} icon="human" backgroundColor="#2182BD" />
+                )}
+                {profilePhoto && (
+                    <Avatar.Image
+                    size={180}
+                    source={{ uri: profilePhoto }}
+                    backgroundColor="#2182BD"
+                    />
+                )}
+            </TouchableOpacity>
                 <Spacer position="top" size="large" >
                     <Text variant="label">
                         {user.email}
