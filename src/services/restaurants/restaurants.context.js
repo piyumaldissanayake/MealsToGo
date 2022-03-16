@@ -17,16 +17,14 @@ export const RestaurantContextProvider = ({children}) => {
     const retreiveRestaurants = (locationString) =>{
         setIsLoading(true);
         setRestaurants([]); // clearing out the restaurant data
-        setTimeout(()=>{
-            restaurantsRequest(locationString).then(restaurantsTransform).then((transforedResult)=>{
-                setIsLoading(false);
-                setRestaurants(transforedResult);
-            }).catch( (error) => {
-                setIsLoading(false);
-                setError(error);
-                
-            });
-        }, 2000);
+        restaurantsRequest(locationString).then(restaurantsTransform).then((transforedResult)=>{
+            setIsLoading(false);
+            setRestaurants(transforedResult);
+        }).catch( (error) => {
+            setIsLoading(false);
+            setError(error);
+            
+        });
     }
 
     useEffect(()=>{

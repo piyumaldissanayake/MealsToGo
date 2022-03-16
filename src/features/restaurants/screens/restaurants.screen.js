@@ -7,7 +7,7 @@ import {Search} from '../components/search.component';
 import {RestaurantInfoCard} from '../components/restaurant-info-card/restaurant-info-card.component';
 import { SafeAreaViewContainer } from '../../../components/utilities/safe-area.component';
 import { FavouritesBar } from '../../../components/favourites/favourites-bar.component';
-
+import { Text } from '../../../components/typography/typography.component';
 
 import {RestaurantContext} from '../../../services/restaurants/restaurants.context';
 import {FavouritesContext} from '../../../services/favourites/favourites.context';
@@ -18,6 +18,11 @@ const RestaurantList = styled(FlatList).attrs({
   contentContainerStyle: {
     padding: 16  }
 })``;
+
+const NoFavouritesText = styled(Text)`
+    align-items: center;
+    justify-content: center;
+`;
 
 const Loading = styled(ActivityIndicator)`
   margin-left: -25px;
@@ -45,7 +50,8 @@ export const RestaurantsScreen   = ({ navigation }) => {
                 <Loading size={50} animating={true} color={Colors.orange800} />
               </LoadingContainer>
             )}
-              <RestaurantList
+              {restaurants.length ?
+              (<RestaurantList
                 data={restaurants}
                 renderItem= {({item})=> {
                   return(
@@ -61,7 +67,12 @@ export const RestaurantsScreen   = ({ navigation }) => {
                 }
               }
                 keyExtractor = {(item) => item.name}
-              />
+              />)
+              :   
+              (
+                  <NoFavouritesText center>No Results for This City Yet</NoFavouritesText>
+              )
+            }
         </SafeAreaViewContainer>
     );
 }

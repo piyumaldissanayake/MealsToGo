@@ -36,8 +36,6 @@ export const MapScreen = ({navigation}) => {
 
     setlngDelta(northeastLng - southwestLng);
 
-    console.log("delta", latDelta, lngDelta);
-
   }, [location, viewport]);
 
   return (
@@ -47,7 +45,7 @@ export const MapScreen = ({navigation}) => {
             latitude: lat,
             longitude: lng,
             latitudeDelta:latDelta,
-            longitudeDelta:0.02,
+            longitudeDelta:0.04,
         }} >
         {restaurants.map((restaurant)=>{
           return(
