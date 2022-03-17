@@ -18,6 +18,7 @@ export const RestaurantContextProvider = ({children}) => {
         setIsLoading(true);
         setRestaurants([]); // clearing out the restaurant data
         restaurantsRequest(locationString).then(restaurantsTransform).then((transforedResult)=>{
+            setError(null);
             setIsLoading(false);
             setRestaurants(transforedResult);
         }).catch( (error) => {

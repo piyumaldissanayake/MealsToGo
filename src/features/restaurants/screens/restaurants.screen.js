@@ -8,7 +8,9 @@ import {RestaurantInfoCard} from '../components/restaurant-info-card/restaurant-
 import { SafeAreaViewContainer } from '../../../components/utilities/safe-area.component';
 import { FavouritesBar } from '../../../components/favourites/favourites-bar.component';
 import { Text } from '../../../components/typography/typography.component';
+import { Spacer } from '../../../components/spacer/spacer.component';
 
+import {LocationContext} from '../../../services/location/location.context';
 import {RestaurantContext} from '../../../services/restaurants/restaurants.context';
 import {FavouritesContext} from '../../../services/favourites/favourites.context';
 
@@ -19,7 +21,7 @@ const RestaurantList = styled(FlatList).attrs({
     padding: 16  }
 })``;
 
-const NoFavouritesText = styled(Text)`
+const NoRestaurantsText = styled(Text)`
     align-items: center;
     justify-content: center;
 `;
@@ -35,10 +37,12 @@ const LoadingContainer = styled.View`
 
 export const RestaurantsScreen   = ({ navigation }) => {
     
-    const {isLoading, restaurants} = useContext(RestaurantContext);
+    const { error: locationError } = useContext(LocationContext);
+    const {isLoading, restaurants, error} = useContext(RestaurantContext);
     const { favourites } = useContext(FavouritesContext);
-    
     const [isToggled, setIsToggled] = useState(false);
+
+    const hasError = (!!error || !!locationError);
 
     return(
         <SafeAreaViewContainer>
@@ -50,8 +54,13 @@ export const RestaurantsScreen   = ({ navigation }) => {
                 <Loading size={50} animating={true} color={Colors.orange800} />
               </LoadingContainer>
             )}
-              {restaurants.length ?
-              (<RestaurantList
+              {hasError && 
+                <Spacer position="left" size="large">
+                  <Text variant="error" >Something went wrong retreiving the data</Text>
+                </Spacer>
+              }
+              {!hasError &&
+              <RestaurantList
                 data={restaurants}
                 renderItem= {({item})=> {
                   return(
@@ -67,11 +76,7 @@ export const RestaurantsScreen   = ({ navigation }) => {
                 }
               }
                 keyExtractor = {(item) => item.name}
-              />)
-              :   
-              (
-                  <NoFavouritesText center>No Results for This City Yet</NoFavouritesText>
-              )
+              />
             }
         </SafeAreaViewContainer>
     );

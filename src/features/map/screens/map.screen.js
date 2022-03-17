@@ -3,6 +3,8 @@ import MapView from 'react-native-maps';
 import styled from 'styled-components/native';
 
 
+import { SafeAreaViewContainer } from '../../../components/utilities/safe-area.component';
+
 import { Search } from '../components/search.component';
 import { LocationContext } from '../../../services/location/location.context';
 import { RestaurantContext } from '../../../services/restaurants/restaurants.context';
@@ -15,7 +17,7 @@ const Map = styled(MapView)`
     height: 100%;
 `;
 
-export const MapScreen = ({navigation}) => {
+export const RestaurantMap= (navigation) => {
 
   const { location } = useContext(LocationContext);
   const { restaurants = [] } = useContext(RestaurantContext);
@@ -69,4 +71,22 @@ export const MapScreen = ({navigation}) => {
       </Map>
     </>
   );
+}
+
+export const MapScreen = ({navigation}) => {
+  const { location } = useContext(LocationContext);
+  if(!location) {
+    return (
+      <SafeAreaViewContainer>
+        <Map region={{
+            latitude: 0.0,
+            longitude: 0.0,
+            latitudeDelta: 0.0,
+            longitudeDelta: 0.0
+
+        }} ></Map>
+      </SafeAreaViewContainer>
+    );
+  };
+  return <RestaurantMap navigation={navigation}  />
 }
